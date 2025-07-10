@@ -37,6 +37,7 @@ jobs:
 
 
       - name: Newman Report
+        if: always() # ensure that archive executed irrespective whether previus step passed or not
         uses: actions/upload-artifact@v4.6.2
         with:
           name: Newman Report
