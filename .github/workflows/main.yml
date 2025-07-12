@@ -42,13 +42,33 @@ jobs:
         with:
           name: Newman Report
           path: newman/*.html
-
+  
       - name: Creating github page branch
         if: always()
         uses: peaceiris/actions-gh-pages@v4.0.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: newman/
+
+      - name: Send Email Notification
+        if: always()
+        uses: dawidd6/action-send-mail@v6
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: Phoenix Inwarranty flow Test Execution Notification
+          to: stephin95@gmail.com
+          from: ${{ secrets.EMAIL_USERNAME }}
+          body: |
+                Hi,
+                Phoenix Inwarranty Flow tests have been executed. The Report has been published and the URL
+                is https://michaelalexjosestephin.github.io/Phoenix-Inwarranty-Flow/
+          
+          
+          
+          
             
       
         
